@@ -1,0 +1,13 @@
+<material-button (trigger)="addNewCard()">New word</material-button>
+<div>
+    <span *ngFor="let word of words">
+        <single-card [card]="word"></single-card>
+
+    </span>
+</div>
+
+<modal [visible]="editCard">
+    <material-dialog class="basic-dialog">
+        <word-card [handler]="dialogHandler"></word-card>
+    </material-dialog>
+</modal>

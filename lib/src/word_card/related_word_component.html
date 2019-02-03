@@ -1,0 +1,37 @@
+<h4>Related</h4>
+<div>
+    <material-dropdown-select
+            [buttonText]="relatedWordTypeLabel"
+            placeholder="Related"
+            [options]="availableTypes"
+            [selection]="currentSelection" deselctOnActivate="true">
+    </material-dropdown-select>
+
+    <material-input label="Word"
+                    autoFocus floatingLabel
+                    placeholder="Word"
+                    [(ngModel)]="currentWord">
+    </material-input>
+    <material-fab mini raised
+                  (trigger)="add()"
+                  [disabled]="canAdd()">
+        <material-icon icon="add"></material-icon>
+    </material-fab>
+</div>
+<p *ngIf="relatedWords.isEmpty">
+    Add related words above.
+</p>
+
+<div *ngIf="relatedWords.isNotEmpty">
+    <ul>
+        <li *ngFor="let word of relatedWords; let i=index">
+            <span>
+                <b>{{relatedWordDisplayName(word.wordType)}}</b>
+                {{word.relatedWord}}
+            </span>
+            <material-fab mini (trigger)="remove(i)">
+                <material-icon icon="delete"></material-icon>
+            </material-fab>
+        </li>
+    </ul>
+</div>

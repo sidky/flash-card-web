@@ -1,0 +1,28 @@
+<material-button (trigger)="saveWord()" raised>Done</material-button>
+<material-button (trigger)="cancel()">Cancel</material-button>
+<div>
+    <material-input label="Deutsche"
+                  autoFocus floatingLabel
+                  placeholder="wort"
+                  [(ngModel)]="word">
+    </material-input>
+    <br/>
+    <material-input label="English"
+                  autoFocus floatingLabel
+                  placeholder="word"
+                  [(ngModel)]="translation">
+    </material-input>
+    <br/>
+    <material-dropdown-select
+            [buttonText]="wordTypeLabel"
+            placeholder="Unknown"
+            [options]="wordTypeSelections"
+            [selection]="selectionModel" deselctOnActivate="true">
+    </material-dropdown-select>
+    <br/>
+</div>
+
+<related-word>
+
+</related-word>
+

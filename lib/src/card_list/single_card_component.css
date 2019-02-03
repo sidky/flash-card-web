@@ -1,0 +1,33 @@
+div {
+    width: 2.5in;
+    margin: auto;
+    min-height: 2.5in;
+    background-color: coral;
+    display: inline-table;
+}
+
+div span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.male {
+    background-color: blue;
+}
+
+.female {
+    background-color: red;
+}
+
+.neutral {
+    background-color: green;
+}
+
+.plural {
+    background-color: gold;
+}
+
+.unknown {
+    background-color: white;
+}
