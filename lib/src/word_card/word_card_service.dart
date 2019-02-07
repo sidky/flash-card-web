@@ -7,6 +7,8 @@ class WordCardService {
 
   List<RelatedWord> getRelatedWords() => _relatedWords;
   addRelatedWord(RelatedWord word) => _relatedWords.add(word);
+
+  clear() => _relatedWords.clear();
 }
 
 enum RelatedWordType {

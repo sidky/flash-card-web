@@ -74,6 +74,13 @@ class WordCardComponent {
     }
   }
 
+  reset() {
+    _wordCardService.clear();
+    word = '';
+    translation = '';
+    selectionModel.clear();
+  }
+
   String _relatedWordType(RelatedWordType t) {
     switch (t) {
       case RelatedWordType.feminine: return "female";
