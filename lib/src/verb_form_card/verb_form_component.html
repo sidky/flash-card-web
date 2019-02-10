@@ -1,6 +1,4 @@
-<material-button (trigger)="saveWord()" raised>Done</material-button>
-<material-button (trigger)="cancel()">Cancel</material-button>
-<material-button (trigger)="reset()">Clear</material-button>
+<edit-dialog-header (onSave)="saveWord()" (onCancel)="cancel()" (onReset)="resetWord()"></edit-dialog-header>
 
 <div><material-input label="verb" autoFocus floatingLabel placeholder="Verb" [(ngModel)]="verb"></material-input></div>
 <div><material-input label="translation" autoFocus floatingLabel placeholder="Translation" [(ngModel)]="translation"></material-input></div>

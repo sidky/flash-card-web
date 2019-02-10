@@ -1,9 +1,12 @@
 import 'package:angular/angular.dart';
+import 'package:flash_card_web/src/dialog_header/dialog_header_component.dart';
 
 @Component(
   selector: 'verb-form-card',
   templateUrl: 'verb_form_component.html',
-  directives: []
+  directives: [
+    DialogHeaderComponent,
+  ]
 )
 class VerbFormComponent {
   String verb;
@@ -13,4 +16,16 @@ class VerbFormComponent {
   String erSieEsForm;
   String wirForm;
   String SieForm;
+
+  saveWord() {
+
+  }
+
+  cancel() {
+
+  }
+
+  resetWord() {
+
+  }
 }

@@ -15,9 +15,9 @@ void main() {
 
   tearDown(disposeAnyRunningTest);
 
-  test('heading', () {
-    expect(fixture.text, contains('My First AngularDart App'));
-  });
+//  test('heading', () {
+////    expect(fixture.text, contains('My First AngularDart App'));
+//  });
 
   // Testing info: https://webdev.dartlang.org/angular/guide/testing
 }

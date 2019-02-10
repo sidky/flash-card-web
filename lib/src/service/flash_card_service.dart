@@ -18,7 +18,7 @@ class FlashCardService {
 
   SortOrder _sortOrder = SortOrder.word;
 
-  String _searchPrefix = null;
+  String _searchPrefix;
 
   set sortOrder(SortOrder order) {
     _sortOrder = order;

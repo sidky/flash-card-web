@@ -21,9 +21,9 @@ typedef void EditDialogFunction();
 )
 class DialogHeaderComponent {
 
-  final _onSave = StreamController<void>.broadcast(sync: true);
-  final _onCancel = StreamController<void>.broadcast(sync: true);
-  final _onReset = StreamController<void>.broadcast(sync: true);
+  final _onSave = StreamController<bool>.broadcast(sync: true);
+  final _onCancel = StreamController<bool>.broadcast(sync: true);
+  final _onReset = StreamController<bool>.broadcast(sync: true);
 
   @Output()
   Stream<void> get onSave => _onSave.stream;
@@ -35,14 +35,14 @@ class DialogHeaderComponent {
   Stream<void> get onReset => _onReset.stream;
 
   void onSaveClicked() {
-    _onSave.add(null);
+    _onSave.add(true);
   }
 
   void onCancelClicked() {
-    _onCancel.add(null);
+    _onCancel.add(true);
   }
 
   void onResetClicked() {
-    _onReset.add(null);
+    _onReset.add(true);
   }
 }
