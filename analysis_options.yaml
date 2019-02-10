@@ -17,3 +17,5 @@ analyzer:
   # issues: https://github.com/dart-lang/angular_analyzer_plugin/issues
   # plugins:
     # - angular
+  plugins:
+    - angular

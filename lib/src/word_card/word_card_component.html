@@ -1,6 +1,4 @@
-<material-button (trigger)="saveWord()" raised>Done</material-button>
-<material-button (trigger)="cancel()">Cancel</material-button>
-<material-button (trigger)="reset()">Clear</material-button>
+<edit-dialog-header (onSave)="saveWord()" (onCancel)="cancel()" (onReset)="reset()"></edit-dialog-header>
 <div>
     <material-input label="Deutsche"
                     autoFocus floatingLabel

@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 
 import 'package:flash_card_web/src/data/word_card.dart';
+import 'package:flash_card_web/src/dialog_header/dialog_header_component.dart';
 import 'package:flash_card_web/src/service/edit_card_service.dart';
 import 'package:flash_card_web/src/word_card/related_word_component.dart';
 import 'package:flash_card_web/src/word_card/word_card_service.dart';
@@ -11,6 +12,7 @@ import 'package:flash_card_web/src/service/flash_card_service.dart';
   selector: 'word-card',
   templateUrl: 'word_card_component.html',
   directives: [
+    DialogHeaderComponent,
     MaterialCheckboxComponent,
     MaterialDropdownSelectComponent,
     MaterialFabComponent,

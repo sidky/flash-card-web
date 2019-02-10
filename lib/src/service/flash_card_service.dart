@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import 'package:firebase/firebase.dart';
+import 'package:flash_card_web/src/data/verb_form_card.dart';
 import 'package:flash_card_web/src/data/word_card.dart';
 import 'package:flash_card_web/secret.dart';
 
@@ -12,6 +13,8 @@ class FlashCardService {
   Database _db;
 
   List<WordCard> _words;
+
+  List<VerbFormCard> _verbs;
 
   SortOrder _sortOrder = SortOrder.word;
 
@@ -66,6 +69,7 @@ class FlashCardService {
   }
 
   DatabaseReference get refWords => _db.ref("words");
+  DatabaseReference get refVerbs => _db.ref("verbs");
 
   List<WordCard> getWords() {
 
@@ -93,6 +97,13 @@ class FlashCardService {
       "type": _wordType(card.wordType),
       "value": card.value,
       "related": card.related
+    });
+  }
+
+  addVerb(VerbFormCard card) async {
+    await refVerbs.child(card.word).set({
+      "value": card.translation,
+      "forms": card.pronouns
     });
   }
 
