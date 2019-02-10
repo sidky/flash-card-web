@@ -2,6 +2,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 
 import 'package:flash_card_web/src/data/word_card.dart';
+import 'package:flash_card_web/src/service/edit_card_service.dart';
 import 'package:flash_card_web/src/word_card/related_word_component.dart';
 import 'package:flash_card_web/src/word_card/word_card_service.dart';
 import 'package:flash_card_web/src/service/flash_card_service.dart';
@@ -17,6 +18,8 @@ import 'package:flash_card_web/src/service/flash_card_service.dart';
     MaterialIconComponent,
     RelatedWordComponent,
     materialInputDirectives,
+    materialProviders,
+    ModalComponent,
     NgFor,
     NgIf,
   ],
@@ -25,14 +28,17 @@ import 'package:flash_card_web/src/service/flash_card_service.dart';
     ClassProvider(WordCardService)
   ]
 )
-class WordCardComponent {
+class WordCardComponent implements OnInit {
 
   @Input() OnCardEditEvent handler;
 
   final WordCardService _wordCardService;
   final FlashCardService _flashCardService;
+  final EditCardService _editCardService;
 
-  WordCardComponent(this._wordCardService, this._flashCardService);
+  bool showDialog;
+
+  WordCardComponent(this._wordCardService, this._flashCardService, this._editCardService);
 
   var word = '';
   var translation = '';
@@ -50,8 +56,21 @@ class WordCardComponent {
   String get wordTypeLabel =>
     selectionModel.selectedValues.isNotEmpty ? selectionModel.selectedValues.first.uiDisplayName : "Select a word type";
 
+  WordTypeSelection _findSelection(WordType wordType) {
+    return wordTypes.firstWhere((selection) => selection.wordType == wordType);
+  }
 
   ngOnInit() {
+    print("ngOnInit");
+    _editCardService.onDialogVisibilityChange.listen((showDialog) {
+      if (showDialog) {
+        word = _editCardService.word;
+        translation = _editCardService.translation;
+        selectionModel.select(_findSelection(_editCardService.cardType));
+      }
+      this.showDialog = showDialog;
+    });
+
   }
 
   saveWord() {

@@ -1,10 +1,15 @@
-<material-button (trigger)="addNewCard()">New word</material-button>
+<span>
+    <material-button (trigger)="addNewCard()">New word</material-button>
+    <material-input label="Search" autoFocus floatingLabel (change)="onChange($event)"></material-input>
+</span>
 <div>
     <span *ngFor="let word of words">
         <single-card [card]="word"></single-card>
 
     </span>
 </div>
+
+<!--<word-card></word-card>-->
 
 <modal [visible]="editCard">
     <material-dialog class="basic-dialog">

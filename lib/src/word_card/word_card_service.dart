@@ -1,8 +1,33 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
+import 'package:flash_card_web/src/service/edit_card_service.dart';
 
 @Injectable()
 class WordCardService {
+
+  EditCardService _editCardService;
+
+  WordCardService(this._editCardService) {
+    this._editCardService.onDialogVisibilityChange.listen((visible) {
+      if (visible) {
+        var current = _editCardService.relatedWords;
+
+        current.forEach((key, value) {
+          _relatedWords = List();
+          switch (key) {
+            case "male": _relatedWords.add(RelatedWord(RelatedWordType.masculine, value));
+              break;
+            case "female": _relatedWords.add(RelatedWord(RelatedWordType.feminine, value));
+              break;
+            case "neutral": _relatedWords.add(RelatedWord(RelatedWordType.neutral, value));
+              break;
+            case "plural": _relatedWords.add(RelatedWord(RelatedWordType.plural, value));
+              break;
+          }
+        });
+      }
+    });
+  }
   List<RelatedWord> _relatedWords = List();
 
   List<RelatedWord> getRelatedWords() => _relatedWords;

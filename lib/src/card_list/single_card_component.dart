@@ -1,6 +1,6 @@
 import 'package:angular/angular.dart';
-import 'package:angular_components/utils/color/color.dart';
 import 'package:flash_card_web/src/data/word_card.dart';
+import 'package:flash_card_web/src/service/edit_card_service.dart';
 
 @Component(
   selector: "single-card",
@@ -9,6 +9,10 @@ import 'package:flash_card_web/src/data/word_card.dart';
   directives: const [NgClass]
 )
 class SingleCardComponent {
+
+  final EditCardService _editCardService;
+
+  SingleCardComponent(this._editCardService);
 
   @Input() WordCard card;
 
@@ -25,5 +29,9 @@ class SingleCardComponent {
       case WordType.plural: return "plural";
       default: return "unknown";
     }
+  }
+
+  edit() {
+    _editCardService.editCard(card);
   }
 }

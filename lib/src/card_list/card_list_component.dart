@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
 import "package:flash_card_web/src/card_list/single_card_component.dart";
+import 'package:flash_card_web/src/service/edit_card_service.dart';
 import "package:flash_card_web/src/service/flash_card_service.dart";
 import 'package:flash_card_web/src/data/word_card.dart';
 import 'package:angular_components/material_dialog/material_dialog.dart';
@@ -13,15 +14,21 @@ import 'package:flash_card_web/src/word_card/word_card_component.dart';
     SingleCardComponent,
     MaterialDialogComponent,
     MaterialButtonComponent,
+    MaterialInputComponent,
     WordCardComponent,
     ModalComponent,
     NgFor,
     NgIf,
   ],
-  providers: const [overlayBindings]
+  providers: const [
+    overlayBindings,
+    ClassProvider(EditCardService)
+  ]
 )
-class CardListComponent implements OnCardEditEvent {
+class CardListComponent extends OnInit implements OnCardEditEvent {
   final FlashCardService _service;
+  final EditCardService _editCardService;
+
   bool _editMode = false;
 
   bool get editCard => _editMode;
@@ -31,11 +38,19 @@ class CardListComponent implements OnCardEditEvent {
 
   OnCardEditEvent get dialogHandler => this;
 
-  CardListComponent(this._service);
+  CardListComponent(this._service, this._editCardService);
+
+  @override
+  Future<Null> ngOnInit() async {
+    _editCardService.onDialogVisibilityChange.listen((showDialog) {
+      _editMode = showDialog;
+      print(_editMode);
+    });
+  }
 
   addNewCard() {
-    currentCard = WordCard("", "", WordType.unknown, Map());
-    _editMode = true;
+    print("Edit");
+    _editCardService.newCard();
   }
 
   @override
@@ -43,4 +58,8 @@ class CardListComponent implements OnCardEditEvent {
 
   @override
   void onUpdated() => _editMode = false;
+
+  void onChange(String prefix) {
+    _service.searchPrefix = prefix;
+  }
 }
