@@ -1,10 +1,19 @@
 <span>
     <material-button (trigger)="addNewCard()">New word</material-button>
+    <material-button (trigger)="addNewVerb()">New verb</material-button>
     <material-input label="Search" autoFocus floatingLabel (change)="onChange($event)"></material-input>
 </span>
 <div>
     <span *ngFor="let word of words">
         <single-card [card]="word"></single-card>
+
+    </span>
+</div>
+
+<span><h2>Verbs</h2></span>
+<div>
+    <span *ngFor="let verb of verbs">
+        <single-verb-card [card]="verb" (onEdit)="editVerbCard($event)"></single-verb-card>
 
     </span>
 </div>
@@ -15,4 +24,11 @@
     <material-dialog class="basic-dialog">
         <word-card [handler]="dialogHandler"></word-card>
     </material-dialog>
+</modal>
+
+<modal [visible]="editVerb">
+    <material-dialog class="basic-dialog">
+        <verb-form-card [verbForm]="verb" (onClosed)="onClosedVerbFormDialog()"></verb-form-card>
+    </material-dialog>
+
 </modal>

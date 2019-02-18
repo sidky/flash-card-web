@@ -1,5 +1,5 @@
 enum VerbPronounForm {
-  ich, du, er, sie, es, wir, ihr, Sie
+  ich, du, er, sie, es, wir, ihr, siePlural, Sie
 }
 
 class VerbFormCard {
@@ -28,8 +28,14 @@ class VerbFormCard {
       case VerbPronounForm.es: return "es";
       case VerbPronounForm.wir: return "wir";
       case VerbPronounForm.ihr: return "ihr";
+      case VerbPronounForm.siePlural: return "sie_plural";
       case VerbPronounForm.Sie: return "Sie";
     }
     return null;
+  }
+
+  @override
+  String toString() {
+    return 'VerbFormCard{word: $word, translation: $translation, forms: $forms}';
   }
 }

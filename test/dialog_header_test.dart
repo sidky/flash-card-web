@@ -35,4 +35,5 @@ void main() {
   test('Reset button', () async {
     await po.reset();
     await fixture.update((c) async => expect(await c.onReset.length, 1));
-  });}
+  });
+}

@@ -1,9 +1,11 @@
 <edit-dialog-header (onSave)="saveWord()" (onCancel)="cancel()" (onReset)="resetWord()"></edit-dialog-header>
 
-<div><material-input label="verb" autoFocus floatingLabel placeholder="Verb" [(ngModel)]="verb"></material-input></div>
-<div><material-input label="translation" autoFocus floatingLabel placeholder="Translation" [(ngModel)]="translation"></material-input></div>
-<div><material-input label="ich" autoFocus floatingLabel placeholder="ich" [(ngModel)]="ichForm"></material-input></div>
-<div><material-input label="du" autoFocus floatingLabel placeholder="du" [(ngModel)]="duForm"></material-input></div>
-<div><material-input label="er/sie/es" autoFocus floatingLabel placeholder="er/sie/es" [(ngModel)]="erSieEsForm"></material-input></div>
-<div><material-input label="wir" autoFocus floatingLabel placeholder="wir" [(ngModel)]="wirForm"></material-input></div>
-<div><material-input label="Sie" autoFocus floatingLabel placeholder="Sie" [(ngModel)]="SieForm"></material-input></div>
+<div><material-input id="verb" label="verb" autoFocus floatingLabel placeholder="Verb" [(ngModel)]="verb"></material-input></div>
+<div><material-input id="translation" label="translation" autoFocus floatingLabel placeholder="Translation" [(ngModel)]="translation"></material-input></div>
+<div><material-input id="ich" label="ich" autoFocus floatingLabel placeholder="ich" [(ngModel)]="ichForm"></material-input></div>
+<div><material-input id="du" label="du" autoFocus floatingLabel placeholder="du" [(ngModel)]="duForm"></material-input></div>
+<div><material-input id="er_sie_es" label="er/sie/es" autoFocus floatingLabel placeholder="er/sie/es" [(ngModel)]="erSieEsForm"></material-input></div>
+<div><material-input id="wir" label="wir" autoFocus floatingLabel placeholder="wir" [(ngModel)]="wirForm"></material-input></div>
+<div><material-input id="ihr" label="ihr" autoFocus floatingLabel placeholder="ihr" [(ngModel)]="ihrForm"></material-input></div>
+<div><material-input id="siePlural" label="sie (plural)" autoFocus floatingLabel placeholder="sie" [(ngModel)]="siePluralForm"></material-input></div>
+<div><material-input id="Sie" label="Sie" autoFocus floatingLabel placeholder="Sie" [(ngModel)]="SieForm"></material-input></div>

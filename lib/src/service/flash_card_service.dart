@@ -1,8 +1,8 @@
 import 'package:angular/angular.dart';
 import 'package:firebase/firebase.dart';
+import 'package:flash_card_web/src/data/firebase_dao.dart';
 import 'package:flash_card_web/src/data/verb_form_card.dart';
 import 'package:flash_card_web/src/data/word_card.dart';
-import 'package:flash_card_web/secret.dart';
 
 enum SortOrder {
   word, type
@@ -10,7 +10,7 @@ enum SortOrder {
 
 @Injectable()
 class FlashCardService {
-  Database _db;
+  FirebaseDAO _dao;
 
   List<WordCard> _words;
 
@@ -32,20 +32,8 @@ class FlashCardService {
   static final Function _orderByType = (WordCard card1, WordCard card2) => card1.wordType != card2.wordType ?
   card1.wordType.index.compareTo(card2.wordType.index) : card1.word.toLowerCase().compareTo(card2.word.toLowerCase());
 
-  FlashCardService() {
-
-    var app = initializeApp(
-        apiKey: firebaseApiKey,
-        authDomain: authDomain,
-        databaseURL: databaseURL,
-        projectId: projectId,
-        storageBucket: storageBucketId,
-        messagingSenderId: messagingSenderId
-    );
-    print(app);
-    _db = database(app);
-
-    refWords.onValue.listen((e) {
+  FlashCardService(this._dao) {
+    _dao.onValue("words").listen((e) {
       DataSnapshot snapshot = e.snapshot;
       List<WordCard> cards = List();
 
@@ -66,10 +54,28 @@ class FlashCardService {
       });
       _words = cards;
     });
-  }
 
-  DatabaseReference get refWords => _db.ref("words");
-  DatabaseReference get refVerbs => _db.ref("verbs");
+    _dao.onValue("verbs").listen((e) {
+      DataSnapshot snapshot = e.snapshot;
+      List<VerbFormCard> cards = List();
+
+      snapshot.forEach((child) {
+        String  value = child.child("value").val();
+
+        Map<VerbPronounForm, String> forms = Map();
+        
+        child.child("forms").forEach((r) {
+          VerbPronounForm key = _parsePronounForm(r.key);
+          String value = r.val();
+          forms[key] = value;
+        });
+
+        VerbFormCard card = VerbFormCard(child.key, value, forms);
+        cards.add(card);
+      });
+      _verbs = cards;
+    });
+  }
 
   List<WordCard> getWords() {
 
@@ -92,8 +98,30 @@ class FlashCardService {
     return cards;
   }
 
+  List<VerbFormCard> getVerbs() {
+
+    List<VerbFormCard> cards = List();
+
+    if (_verbs == null) return List();
+
+    _verbs.forEach((card) {
+      if (_searchPrefix == null || card.word.startsWith(_searchPrefix)) {
+        cards.add(card);
+      }
+    });
+
+//    if (_sortOrder == SortOrder.word) {
+//      cards.sort(_orderByWord);
+//    } else if (_sortOrder == SortOrder.type) {
+//      cards.sort(_orderByType);
+//    }
+
+    return cards;
+  }
+
+
   addWord(WordCard card) async {
-    await refWords.child(card.word).set({
+    await _dao.setValue("words", card.word, {
       "type": _wordType(card.wordType),
       "value": card.value,
       "related": card.related
@@ -101,7 +129,7 @@ class FlashCardService {
   }
 
   addVerb(VerbFormCard card) async {
-    await refVerbs.child(card.word).set({
+    await _dao.setValue("verbs", card.word, {
       "value": card.translation,
       "forms": card.pronouns
     });
@@ -124,6 +152,21 @@ class FlashCardService {
       case "neutral": return WordType.neutral;
       case "plural": return WordType.plural;
       default: return WordType.unknown;
+    }
+  }
+
+  VerbPronounForm _parsePronounForm(String pronoun) {
+    switch (pronoun) {
+      case "ich": return VerbPronounForm.ich;
+      case "du": return VerbPronounForm.du;
+      case "er": return VerbPronounForm.er;
+      case "sie": return VerbPronounForm.sie;
+      case "es": return VerbPronounForm.es;
+      case "wir": return VerbPronounForm.wir;
+      case "ihr": return VerbPronounForm.ihr;
+      case "sie_plural": return VerbPronounForm.siePlural;
+      case "Sie": return VerbPronounForm.Sie;
+      default: return null;
     }
   }
 }

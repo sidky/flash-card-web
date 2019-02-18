@@ -1,4 +1,5 @@
 import 'package:angular/angular.dart';
+import 'package:flash_card_web/src/data/firebase_dao.dart';
 
 import 'src/todo_list/todo_list_component.dart';
 import 'src/word_card/word_card_component.dart';
@@ -16,6 +17,7 @@ import 'package:flash_card_web/src/card_list/card_list_component.dart';
   directives: [TodoListComponent, WordCardComponent, SingleCardComponent, CardListComponent],
   providers: [
     ClassProvider(FlashCardService),
+    ClassProvider(FirebaseDAO)
   ]
 )
 class AppComponent {
