@@ -14,7 +14,7 @@ import 'package:flash_card_web/src/data/verb_form_card.dart';
 class SingleVerbCardComponent {
   @Input() VerbFormCard card;
 
-  StreamController<VerbFormCard> _streamController = StreamController<VerbFormCard>.broadcast();
+  StreamController<VerbFormCard> _streamController = StreamController<VerbFormCard>.broadcast(sync: true);
 
   @Output() Stream get onEdit => _streamController.stream;
 

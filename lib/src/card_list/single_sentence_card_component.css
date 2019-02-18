@@ -1,0 +1,13 @@
+div {
+    width: 7.5in;
+    margin: auto;
+    min-height: 2.5in;
+    background-color: #FFEBCD;
+    display: inline-table;
+}
+
+div span {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}

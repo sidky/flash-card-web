@@ -1,6 +1,7 @@
 import 'package:angular/angular.dart';
 import 'package:firebase/firebase.dart';
 import 'package:flash_card_web/src/data/firebase_dao.dart';
+import 'package:flash_card_web/src/data/sentence_card.dart';
 import 'package:flash_card_web/src/data/verb_form_card.dart';
 import 'package:flash_card_web/src/data/word_card.dart';
 
@@ -13,8 +14,8 @@ class FlashCardService {
   FirebaseDAO _dao;
 
   List<WordCard> _words;
-
   List<VerbFormCard> _verbs;
+  List<SentenceCard> _sentences;
 
   SortOrder _sortOrder = SortOrder.word;
 
@@ -75,6 +76,22 @@ class FlashCardService {
       });
       _verbs = cards;
     });
+
+    _dao.onValue("sentences").listen((e) {
+      DataSnapshot snapshot = e.snapshot;
+      List<SentenceCard> cards = List();
+
+      snapshot.forEach((child) {
+        String question = child.key;
+        String questionTranslation = child.child("translation").val();
+        String answer = child.child("answer").val();
+        String answerTranslation = child.child("answer_translation").val();
+
+        cards.add(SentenceCard(question, questionTranslation, answer, answerTranslation));
+      });
+
+      _sentences = cards;
+    });
   }
 
   List<WordCard> getWords() {
@@ -119,6 +136,20 @@ class FlashCardService {
     return cards;
   }
 
+  List<SentenceCard> getSentences() {
+    List<SentenceCard> cards = List();
+
+    if (_sentences == null) return List();
+
+    _sentences.forEach((card) {
+      if (_searchPrefix == null || card.question.startsWith(_searchPrefix)) {
+        cards.add(card);
+      }
+    });
+
+    return cards;
+  }
+
 
   addWord(WordCard card) async {
     await _dao.setValue("words", card.word, {
@@ -132,6 +163,14 @@ class FlashCardService {
     await _dao.setValue("verbs", card.word, {
       "value": card.translation,
       "forms": card.pronouns
+    });
+  }
+
+  addSentence(SentenceCard card) async {
+    await _dao.setValue("sentences", card.question, {
+      "translation": card.questionTranslation,
+      "answer": card.answer,
+      "answer_translation": card.answerTranslation
     });
   }
 

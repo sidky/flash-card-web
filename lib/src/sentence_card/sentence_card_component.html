@@ -1,0 +1,6 @@
+<edit-dialog-header (onSave)="saveSentence()" (onCancel)="cancel()" (onReset)="resetSentence()"></edit-dialog-header>
+
+<div><material-input id="question" label="Question" autoFocus floatingLabel placeholder="Question" [(ngModel)]="question"></material-input></div>
+<div><material-input id="translation" label="translation" autoFocus floatingLabel placeholder="Translation" [(ngModel)]="questionTranslation"></material-input></div>
+<div><material-input id="answer" label="answer" autoFocus floatingLabel placeholder="answer" [(ngModel)]="answer"></material-input></div>
+<div><material-input id="answerTranslation" label="Translation" autoFocus floatingLabel placeholder="Translation" [(ngModel)]="answerTranslation"></material-input></div>

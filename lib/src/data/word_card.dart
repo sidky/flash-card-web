@@ -7,10 +7,10 @@ enum WordType {
 }
 
 class WordCard {
-  String word;
-  String value;
-  WordType wordType;
-  Map<String, String> related;
+  final String word;
+  final String value;
+  final WordType wordType;
+  final Map<String, String> related;
 
-  WordCard(this.word, this.value, this.wordType, this.related);
+  const WordCard(this.word, this.value, this.wordType, this.related);
 }
