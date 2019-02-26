@@ -12,6 +12,8 @@ class WordCardService {
       if (visible) {
         var current = _editCardService.relatedWords;
 
+        _relatedWords.clear();
+
         current.forEach((key, value) {
           _relatedWords = List();
           switch (key) {
